@@ -10,7 +10,7 @@
         padding: 0;
       }
       body {
-        background-color: #000000;
+        background-color: #333;
       }
       canvas {
         width: 100%; height: 100%; position: absolute;
@@ -125,8 +125,6 @@
   <body>
     <canvas class="emscripten" id="canvas"
 	    oncontextmenu="event.preventDefault()"></canvas>
-<center><img src=TemplateData/logo.png width=50% height=50%></center>
-<br><br>
     <div id="loadingBox">
       <div id="spinner"></div>
       <div id="bgBar"></div>
@@ -138,9 +136,9 @@
     TOTAL_MEMORY: 536870912,
     errorhandler: null,			// arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
     compatibilitycheck: null,
-    dataUrl: "Release/kong11.data",
-    codeUrl: "Release/kong11.js",
-    memUrl: "Release/kong11.mem",
+    dataUrl: "Release/Bin.data",
+    codeUrl: "Release/Bin.js",
+    memUrl: "Release/Bin.mem",
     
   };
 </script>
