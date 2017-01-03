@@ -131,20 +131,35 @@
       <div id="progressBar"></div>
       <p id="loadingInfo">Loading...</p>
     </div>
-    <script type='text/javascript'>
+   <script type='text/javascript'>
   var Module = {
     TOTAL_MEMORY: 536870912,
     errorhandler: null,			// arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
     compatibilitycheck: null,
-    backgroundColor: "#222C36",
-    splashStyle: "Light",
-   dataUrl: "Release/valhallio.data",
+    dataUrl: "Release/valhallio.data",
     codeUrl: "Release/valhallio.js",
- asmUrl: "Release/valhallio.asm.js",
     memUrl: "Release/valhallio.mem",
+    
   };
-
-
+  Object.defineProperty(Module, "asmLibraryArg", {
+  set: function (value) {
+    value._JS_UNETWebSockets_SocketCreate = function (hostId, urlPtr) {
+      var url = Pointer_stringify(urlPtr).replace(/^ws:\/\//, "wss://");
+      var urlPtr = Runtime.stackAlloc((url.length << 2) + 1);
+      writeStringToMemory(url, urlPtr);
+      return _JS_UNETWebSockets_SocketCreate(hostId, urlPtr);
+    };
+	value._JS_UNETWebSockets_SocketClose = function (hostId) {
+		console.log("VICTORY")
+		UNETWebSocketsInstances.hostsContainingMessages.shift()
+		_JS_UNETWebSockets_SocketClose(hostId);
+	}
+    Module._asmLibraryArg = value;
+  },
+  get: function () {
+    return Module._asmLibraryArg;
+  },
+});
 </script>
 <script src="Release/UnityLoader.js"></script>
   </body>
